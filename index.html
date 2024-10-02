@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Teaser</title>
+</head>
+<body>
+
+    <form>
+        <input type="text" id="companyLogo" placeholder="Company Logo URL" />
+        <input type="text" id="jobTitle" placeholder="Job Title" />
+        <input type="text" id="companyLocation" placeholder="Company Location" />
+        <textarea id="overview" placeholder="Overview"></textarea>
+        <input type="text" id="duties" placeholder="Duties (comma separated)" />
+        <input type="text" id="requirements" placeholder="Requirements (comma separated)" />
+        <textarea id="notes" placeholder="Notes"></textarea>
+        <input type="text" id="applyLink" placeholder="Apply Link" />
+    </form>
+
+    <button onclick="generateTeaser()">Generate Teaser</button>
+    <button onclick="prefillSampleData()">Prefill Sample Data</button>
+    <button onclick="clearForm()">Clear Form</button>
+
+    <div id="jobTeaserPreview"></div>
+
+    <script>
+        function generateTeaser() {
+            const companyLogo = document.getElementById("companyLogo").value;
+            const jobTitle = document.getElementById("jobTitle").value;
+            const companyLocation = document.getElementById("companyLocation").value;
+            const overview = document.getElementById("overview").value;
+            const duties = document.getElementById("duties").value.split(",");
+            const requirements = document.getElementById("requirements").value.split(",");
+            const notes = document.getElementById("notes").value;
+            const applyLink = document.getElementById("applyLink").value;
+
+            const teaserHTML = `
+                <h2>${jobTitle} at ${companyLocation}</h2>
+                <img src="${companyLogo}" alt="Company Logo" style="max-width: 100px;" />
+                <p><strong>Overview:</strong> ${overview}</p>
+                <ul><strong>Duties:</strong> ${duties.map(duty => `<li>${duty.trim()}</li>`).join('')}</ul>
+                <ul><strong>Requirements:</strong> ${requirements.map(req => `<li>${req.trim()}</li>`).join('')}</ul>
+                <p><strong>Notes:</strong> ${notes}</p>
+                <a href="${applyLink}" target="_blank">Apply Here</a>
+            `;
+
+            document.getElementById("jobTeaserPreview").innerHTML = teaserHTML;
+        }
+
+        function prefillSampleData() {
+            document.getElementById("companyLogo").value = "https://example.com/logo.png";
+            document.getElementById("jobTitle").value = "Software Engineer";
+            document.getElementById("companyLocation").value = "New York, NY";
+            document.getElementById("overview").value = "Join our dynamic tech team to build innovative software solutions.";
+            document.getElementById("duties").value = "Develop software, Collaborate with team, Debug applications";
+            document.getElementById("requirements").value = "Bachelor's degree, 3+ years experience, Strong problem-solving skills";
+            document.getElementById("notes").value = "This is a remote position with flexible hours.";
+            document.getElementById("applyLink").value = "https://example.com/apply";
+        }
+
+        function clearForm() {
+            document.getElementById("companyLogo").value = "";
+            document.getElementById("jobTitle").value = "";
+            document.getElementById("companyLocation").value = "";
+            document.getElementById("overview").value = "";
+            document.getElementById("duties").value = "";
+            document.getElementById("requirements").value = "";
+            document.getElementById("notes").value = "";
+            document.getElementById("applyLink").value = "";
+            document.getElementById("jobTeaserPreview").innerHTML = "";
+        }
+    </script>
+
+</body>
+</html>
